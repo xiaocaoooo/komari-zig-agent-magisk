@@ -96,10 +96,25 @@ curl -fsSL https://cdn.jsdelivr.net/gh/luodaoyi/komari-zig-agent@bd2e0b8de76a116
 
 > 适用于 Linux 和 OpenWrt 的已有 Go Agent 安装。自定义服务名、Windows、首次安装、指定版本或自定义路径等高级场景，请查看脚本参数或 GitHub Release。
 
+## Android / Magisk 模块
+
+本项目提供 Magisk 模块，可让 agent 在 Android 上以根权限常驻运行，无需 Termux。
+从 Release 下载 `komari-agent-magisk-module-arm64.zip`，在 Magisk App 中「从本地安装」后重启即可。
+
+- 模块源码：[magisk/](magisk/)（`module.prop`、`install.sh`、`service.sh`、`uninstall.sh`）
+- 打包脚本：`sh scripts/build_magisk_module.sh <agent-binary> <version>`
+- 安装后配置：`/data/adb/komari-agent/config.json`（首次安装会自动探测并写入 `custom_dns`）
+
+> **为什么必须配 `custom_dns`**：Android 没有 `/etc/resolv.conf`，DNS 服务器只存在于系统属性
+> `vendor.net.<iface>.dns1` 中；本项目的静态 musl 二进制走 libc `getaddrinfo` 时读不到这些属性。
+> 模块的 `install.sh` 会自动探测并写入，无需手工配置。
+
+Android 适配的实测分析见 [docs/android-shell-root-analysis.md](docs/android-shell-root-analysis.md)，
+全功能验证结果见 [docs/avd-module-test-report.md](docs/avd-module-test-report.md)。
+
 ## 自更新
 
 Agent 启动后会检查：
-
 ```text
 https://api.github.com/repos/luodaoyi/komari-zig-agent/releases/latest
 ```

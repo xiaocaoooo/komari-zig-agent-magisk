@@ -1,0 +1,3 @@
+{"at": "2026-10-19T21:53:26", "payload": {"jsonrpc": "2.0", "method": "agent.pingResult", "params": {"task_id": 102, "ping_type": "icmp", "value": 0, "finished_at": "2026-10-19T13:53:25Z"}}}
+{"at": "2026-10-19T21:53:26", "payload": {"jsonrpc": "2.0", "method": "agent.pingResult", "params": {"task_id": 101, "ping_type": "tcp", "value": 1, "finished_at": "2026-10-19T13:53:25Z"}}}
+{"at": "2026-10-19T21:53:26", "payload": {"jsonrpc": "2.0", "method": "agent.pingResult", "params": {"task_id": 103, "ping_type": "http", "value": 5, "finished_at": "2026-10-19T13:53:25Z"}}}
