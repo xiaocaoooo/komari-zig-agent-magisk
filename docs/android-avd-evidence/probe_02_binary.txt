@@ -1,0 +1,203 @@
+
+===== A. binary identity =====
+/data/adb/komari-agent/bin.komari-agent-probe: ELF executable, 64-bit LSB arm64, static, not stripped
+-rwxr-xr-x 1 root root 7166936 2026-10-17 13:52 /data/adb/komari-agent/bin.komari-agent-probe
+
+===== B. --show-warning (startup + interface monitoring) =====
+exit=0
+
+===== C. socket-timeout-smoke =====
+exit=0
+
+===== D. ICMP ping-test raw =====
+0
+exit=0
+
+===== E. ICMP ping-test auto (datagram fallback path) =====
+0
+exit=0
+
+===== F. ICMP ping-test datagram =====
+0
+exit=0
+
+===== G. ICMP to gateway 10.0.2.2 (host reachability) =====
+2
+exit=0
+
+===== H. list-disk (native statfs disk collection) =====
+All Disk Partitions:
+Mountpoint	Fstype
+/	ext4
+/dev	tmpfs
+/dev/pts	devpts
+/proc	proc
+/sys	sysfs
+/sys/fs/selinux	selinuxfs
+/mnt	tmpfs
+/mnt/installer	tmpfs
+/mnt/androidwritable	tmpfs
+/metadata	ext4
+/vendor	ext4
+/product	ext4
+/system_dlkm	erofs
+/system_ext	ext4
+/apex	tmpfs
+/bootstrap-apex	tmpfs
+/linkerconfig	tmpfs
+/dev/blkio	cgroup
+/sys/fs/cgroup	cgroup2
+/dev/cpuctl	cgroup
+/dev/cpuset	cgroup
+/dev/memcg	cgroup
+/bootstrap-apex/com.android.tzdata@350820260	ext4
+/bootstrap-apex/com.android.runtime@1	ext4
+/bootstrap-apex/com.android.i18n@1	ext4
+/bootstrap-apex/com.android.tzdata	ext4
+/bootstrap-apex/com.android.i18n	ext4
+/bootstrap-apex/com.android.runtime	ext4
+/bootstrap-apex/apex-info-list.xml	tmpfs
+/sys/kernel/tracing	tracefs
+/tmp	tmpfs
+/config	configfs
+/dev/binderfs	binder
+/sys/fs/fuse/connections	fusectl
+/sys/fs/bpf	bpf
+/sys/fs/pstore	pstore
+/storage	tmpfs
+/data	ext4
+/linkerconfig	tmpfs
+/data_mirror	tmpfs
+/data_mirror/data_ce/null	ext4
+/data_mirror/data_de/null	ext4
+/data_mirror/misc_ce/null	ext4
+/data_mirror/misc_de/null	ext4
+/data_mirror/storage_area	ext4
+/data_mirror/cur_profiles	ext4
+/data_mirror/ref_profiles	ext4
+/apex/com.android.btservices@342010060	ext4
+/apex/com.android.devicelock@1	ext4
+/apex/com.android.devicelock	ext4
+/apex/com.android.tzdata@350820260	ext4
+/apex/com.google.mainline.primary.libs@350726000	ext4
+/apex/com.android.btservices	ext4
+/apex/com.android.i18n@1	ext4
+/apex/com.android.apex.cts.shim@1	ext4
+/apex/com.android.tzdata	ext4
+/apex/com.android.i18n	ext4
+/apex/com.android.runtime@1	ext4
+/apex/com.android.hardware.cas@1	ext4
+/apex/com.google.android.widevine@190240428	ext4
+/apex/com.android.hardware.neuralnetworks@1	ext4
+/apex/com.android.hardware.rebootescrow@1	ext4
+/apex/com.android.nfcservices@352090000	ext4
+/apex/com.android.runtime	ext4
+/apex/com.android.hardware.neuralnetworks	ext4
+/apex/com.android.hardware.rebootescrow	ext4
+/apex/com.android.nfcservices	ext4
+/apex/com.android.hardware.authsecret@1	ext4
+/apex/com.google.android.widevine	ext4
+/apex/com.android.hardware.cas	ext4
+/apex/com.android.hardware.authsecret	ext4
+/apex/com.android.sdkext@350820300	ext4
+/apex/com.android.resolv@350820300	ext4
+/apex/com.android.virt@2	ext4
+/apex/com.android.apex.cts.shim	ext4
+/apex/com.android.resolv	ext4
+/apex/com.android.virt	ext4
+/apex/com.android.sdkext	ext4
+/apex/com.android.mediaprovider@350820300	ext4
+/apex/com.android.uwb@350820300	ext4
+/apex/com.android.appsearch@350820300	ext4
+/apex/com.android.appsearch	ext4
+/apex/com.android.mediaprovider	ext4
+/apex/com.android.uwb	ext4
+/apex/com.android.adservices@350820260	ext4
+/apex/com.android.cellbroadcast@350820300	ext4
+/apex/com.android.adservices	ext4
+/apex/com.android.extservices@350820303	ext4
+/apex/com.android.tethering@350820300	ext4
+/apex/com.android.cellbroadcast	ext4
+/apex/com.android.extservices	ext4
+/apex/com.android.tethering	ext4
+/apex/com.android.conscrypt@350820300	ext4
+/apex/com.android.media.swcodec@350820300	ext4
+/apex/com.android.conscrypt	ext4
+/apex/com.android.healthfitness@350820300	ext4
+/apex/com.android.wifi@350820300	ext4
+/apex/com.android.neuralnetworks@350820300	ext4
+/apex/com.android.healthfitness	ext4
+/apex/com.android.media.swcodec	ext4
+/apex/com.android.wifi	ext4
+/apex/com.android.adbd@350820300	ext4
+/apex/com.android.configinfrastructure@350820300	ext4
+/apex/com.android.neuralnetworks	ext4
+/apex/com.android.profiling@352090000	ext4
+/apex/com.android.profiling	ext4
+/apex/com.android.adbd	ext4
+/apex/com.android.configinfrastructure	ext4
+/apex/com.android.permission@350820360	ext4
+/apex/com.android.media@350820300	ext4
+/apex/com.android.media	ext4
+/apex/com.android.permission	ext4
+/apex/com.android.ipsec@350820300	ext4
+/apex/com.android.ipsec	ext4
+/apex/com.android.os.statsd@350820260	ext4
+/apex/com.android.art@350820300	ext4
+/apex/com.android.scheduling@350820300	ext4
+/apex/com.android.rkpd@350820300	ext4
+/apex/com.android.ondevicepersonalization@350820260	ext4
+/apex/com.android.os.statsd	ext4
+/apex/com.android.scheduling	ext4
+/apex/com.android.art	ext4
+/apex/com.android.ondevicepersonalization	ext4
+/apex/com.android.rkpd	ext4
+/apex/apex-info-list.xml	tmpfs
+/data_mirror/data_ce/null/0	ext4
+/data/user/0	ext4
+/mnt/installer/0/emulated	fuse
+/mnt/androidwritable/0/emulated	fuse
+/mnt/user/0/emulated	fuse
+/storage/emulated	fuse
+/mnt/pass_through/0/emulated	ext4
+Monitoring Mountpoints: [/apex/com.android.adservices (ext4) /apex/com.android.neuralnetworks (ext4) /metadata (ext4) /apex/com.android.conscrypt (ext4) /apex/com.android.wifi (ext4) /apex/com.android.adbd (ext4) /apex/com.android.configinfrastructure (ext4) /apex/com.android.hardware.neuralnetworks (ext4) /apex/com.android.extservices (ext4) /apex/com.android.permission (ext4) /apex/com.android.art (ext4) /apex/com.android.rkpd (ext4) /apex/com.android.apex.cts.shim (ext4) /apex/com.android.scheduling (ext4) /apex/com.android.uwb (ext4) /apex/com.google.mainline.primary.libs@350726000 (ext4) /apex/com.android.hardware.rebootescrow (ext4) /apex/com.android.hardware.authsecret (ext4) /apex/com.android.sdkext (ext4) /apex/com.android.btservices (ext4) /apex/com.android.tethering (ext4) /apex/com.android.hardware.cas (ext4) /apex/com.android.tzdata (ext4) /apex/com.android.nfcservices (ext4) /apex/com.android.os.statsd (ext4) /apex/com.android.runtime (ext4) /apex/com.android.profiling (ext4) /vendor (ext4) /bootstrap-apex/com.android.i18n (ext4) /apex/com.android.devicelock (ext4) /apex/com.android.healthfitness (ext4) / (ext4) /apex/com.android.ipsec (ext4) /apex/com.google.android.widevine (ext4) /apex/com.android.media (ext4) /apex/com.android.media.swcodec (ext4) /apex/com.android.ondevicepersonalization (ext4) /bootstrap-apex/com.android.tzdata (ext4) /config (configfs) /apex/com.android.i18n (ext4) /apex/com.android.mediaprovider (ext4) /apex/com.android.resolv (ext4) /apex/com.android.appsearch (ext4) /product (ext4) /data (ext4) /apex/com.android.cellbroadcast (ext4) /bootstrap-apex/com.android.runtime (ext4) /apex/com.android.virt (ext4)]
+exit=0
+
+===== I. check-mem (native /proc/meminfo collection) =====
+--- Memory Check ---
+--- /proc/meminfo ---
+MemTotal: 2472 MiB
+MemFree: 176 MiB
+MemAvailable: 805 MiB
+Buffers: 4 MiB
+Cached: 840 MiB
+SwapTotal: 1854 MiB
+SwapFree: 1306 MiB
+SwapCached: 4 MiB
+Shmem: 20 MiB
+SReclaimable: 34 MiB
+Zswap: 0 MiB
+Zswapped: 0 MiB
+---------------------
+[htoplike] Total: 2592759808 bytes (2472 MiB), Used: 1507815424 bytes (1437 MiB)
+[gopsutil] Total: 2592759808 bytes (2472 MiB), Used: 1748561920 bytes (1667 MiB)
+[callFree] Total: 2592759808 bytes (2472 MiB), Used: 2407227392 bytes (2295 MiB)
+--- Current Configured ---
+[htoplike] Total: 2592759808 bytes (2472 MiB), Used: 1507815424 bytes (1437 MiB)
+exit=0
+
+===== J. pty allocation via python-less shell test =====
+crw-rw-rw- 1 root root 5,   2 2026-10-18 08:20 /dev/ptmx
+open /dev/ptmx exit=0
+
+===== K. agent against unreachable endpoint (startup log path) =====
+Monitoring Mountpoints: [/apex/com.android.adservices (ext4) /apex/com.android.neuralnetworks (ext4) /metadata (ext4) /apex/com.android.conscrypt (ext4) /apex/com.android.wifi (ext4) /apex/com.android.adbd (ext4) /apex/com.android.configinfrastructure (ext4) /apex/com.android.hardware.neuralnetworks (ext4) /apex/com.android.extservices (ext4) /apex/com.android.permission (ext4) /apex/com.android.art (ext4) /apex/com.android.rkpd (ext4) /apex/com.android.apex.cts.shim (ext4) /apex/com.android.scheduling (ext4) /apex/com.android.uwb (ext4) /apex/com.google.mainline.primary.libs@350726000 (ext4) /apex/com.android.hardware.rebootescrow (ext4) /apex/com.android.hardware.authsecret (ext4) /apex/com.android.sdkext (ext4) /apex/com.android.btservices (ext4) /apex/com.android.tethering (ext4) /apex/com.android.hardware.cas (ext4) /apex/com.android.tzdata (ext4) /apex/com.android.nfcservices (ext4) /apex/com.android.os.statsd (ext4) /apex/com.android.runtime (ext4) /apex/com.android.profiling (ext4) /vendor (ext4) /bootstrap-apex/com.android.i18n (ext4) /apex/com.android.devicelock (ext4) /apex/com.android.healthfitness (ext4) / (ext4) /apex/com.android.ipsec (ext4) /apex/com.google.android.widevine (ext4) /apex/com.android.media (ext4) /apex/com.android.media.swcodec (ext4) /apex/com.android.ondevicepersonalization (ext4) /bootstrap-apex/com.android.tzdata (ext4) /config (configfs) /apex/com.android.i18n (ext4) /apex/com.android.mediaprovider (ext4) /apex/com.android.resolv (ext4) /apex/com.android.appsearch (ext4) /product (ext4) /data (ext4) /apex/com.android.cellbroadcast (ext4) /bootstrap-apex/com.android.runtime (ext4) /apex/com.android.virt (ext4)]
+Monitoring Interfaces: [dummy0 ifb0 ifb1 tunl0 gre0 gretap0 erspan0 ip_vti0 ip6_vti0 sit0 ip6tnl0 ip6gre0 hwsim0 eth0 wlan0]
+Basic info upload deferred during startup: waiting for public IP refresh
+exit=spawned-and-killed
+
+===== L. write permissions in module dir =====
+writable=yes
+
+===== M. exec of external command (exec task prerequisite) =====
+exec-test-output

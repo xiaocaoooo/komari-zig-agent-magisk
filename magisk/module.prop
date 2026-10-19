@@ -1,0 +1,7 @@
+id=komari_agent
+name=Komari Agent (Zig)
+version=__VERSION__
+versionCode=__VERSION_CODE__
+author=xiaocaoooo
+description=Zig 版 Komari 监控 Agent，以 Magisk 模块形式常驻运行。上报 CPU/内存/磁盘/网络/负载/连接数，支持任务执行、Web SSH、ICMP Ping 与自更新。安装后配置见 /data/adb/komari-agent/config.json。
+updateJson=

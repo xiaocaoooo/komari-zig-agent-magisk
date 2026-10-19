@@ -1,0 +1,95 @@
+=== 1. 解压模块 zip ===
+total 7060
+drwxrwxrwx 2 root  root     4096 2026-10-19 20:38 .
+drwxrwx--x 4 shell shell    4096 2026-10-19 20:38 ..
+-rw-r--r-- 1 root  root     3641 2026-10-19 20:38 README.md
+-rwxr-xr-x 1 root  root     3245 2026-10-19 20:38 install.sh
+-rwxr-xr-x 1 root  root  7166936 2026-10-19 20:38 komari-agent
+-rw-r--r-- 1 root  root      340 2026-10-19 20:38 module.prop
+-rwxr-xr-x 1 root  root     2600 2026-10-19 20:38 service.sh
+-rwxr-xr-x 1 root  root      926 2026-10-19 20:38 uninstall.sh
+
+=== 2. 校验 module.prop ===
+id=komari_agent
+name=Komari Agent (Zig)
+version=dev
+versionCode=1
+author=xiaocaoooo
+description=Zig 版 Komari 监控 Agent，以 Magisk 模块形式常驻运行。上报 CPU/内存/磁盘/网络/负载/连接数，支持任务执行、Web SSH、ICMP Ping 与自更新。安装后配置见 /data/adb/komari-agent/config.json。
+updateJson=
+
+=== 3. 执行 install.sh（提供 Magisk 的 ui_print/abort）===
+- Komari Agent (Zig) 模块安装
+- 数据目录: /data/adb/komari-agent
+- 已安装二进制: /data/adb/komari-agent/bin/komari-agent
+- 探测到 DNS: 10.0.2.3
+- 已存在配置，保留: /data/adb/komari-agent/config.json
+- 安装完成。重启设备后模块自动启动 agent。
+install.sh exit=0
+
+=== 4. 搬到 /data/adb/modules/komari_agent ===
+total 7060
+drwxrwxrwx 2 root root    4096 2026-10-19 20:38 .
+drwxrwxrwx 3 root root    4096 2026-10-19 20:38 ..
+-rw-r--r-- 1 root root    3641 2026-10-19 20:38 README.md
+-rwxr-xr-x 1 root root    3245 2026-10-19 20:38 install.sh
+-rwxr-xr-x 1 root root 7166936 2026-10-19 20:38 komari-agent
+-rw-r--r-- 1 root root     340 2026-10-19 20:38 module.prop
+-rwxr-xr-x 1 root root    2600 2026-10-19 20:38 service.sh
+-rwxr-xr-x 1 root root     926 2026-10-19 20:38 uninstall.sh
+
+=== 5. 安装结果检查 ===
+--- /data/adb/komari-agent ---
+/data/adb/komari-agent:
+total 7052
+drwxrwxrwx 5 root root    4096 2026-10-19 20:37 .
+drwx------ 4 root root    4096 2026-10-19 20:37 ..
+drwxrwxrwx 2 root root    4096 2026-10-19 20:37 bin
+-rwxr-xr-x 1 root root 7166936 2026-10-17 13:52 bin.komari-agent-probe
+-rw------- 1 root root     210 2026-10-19 20:37 config.json
+drwxrwxrwx 2 root root    4096 2026-10-19 20:37 logs
+drwxrwxrwx 2 root root    4096 2026-10-19 18:51 probe
+
+/data/adb/komari-agent/bin:
+total 7020
+drwxrwxrwx 2 root root    4096 2026-10-19 20:37 .
+drwxrwxrwx 5 root root    4096 2026-10-19 20:37 ..
+-rwxr-xr-x 1 root root 7166936 2026-10-19 20:38 komari-agent
+
+/data/adb/komari-agent/logs:
+total 16
+drwxrwxrwx 2 root root 4096 2026-10-19 20:37 .
+drwxrwxrwx 5 root root 4096 2026-10-19 20:37 ..
+
+/data/adb/komari-agent/probe:
+total 1876
+drwxrwxrwx 2 root root    4096 2026-10-19 18:51 .
+drwxrwxrwx 5 root root    4096 2026-10-19 20:37 ..
+-rw-rw-rw- 1 root root    9586 2026-10-18 08:25 binary_out.txt
+-rw-rw-rw- 1 root root 1601251 2026-10-18 12:38 e2e.log
+-rwxr-xr-x 1 root root    2241 2026-10-18 01:20 probe_binary.sh
+-rw-rw-rw- 1 root root   21968 2026-10-18 08:25 probe_out.txt
+-rwxr-xr-x 1 root root    3142 2026-10-17 12:52 probe_shell_root.sh
+-rwxr-xr-x 1 root root  214120 2026-10-19 18:13 pty_probe
+-rw-rw-rw- 1 root root    5745 2026-10-19 18:54 tls.log
+--- config.json ---
+{
+  "endpoint": "",
+  "token": "",
+  "interval": 3,
+  "info_report_interval": 5,
+  "protocol_version": 2,
+  "disable_auto_update": false,
+  "custom_dns": "10.0.2.3",
+  "month_rotate": 0,
+  "debug_log": false
+}
+
+--- 已安装二进制 ---
+/data/adb/komari-agent/bin/komari-agent: ELF executable, 64-bit LSB arm64, static, not stripped
+binary runs: OK
+
+=== 6. 脚本执行位 ===
+-rwxr-xr-x 1 root root 3245 2026-10-19 20:38 /data/adb/modules/komari_agent/install.sh
+-rwxr-xr-x 1 root root 2600 2026-10-19 20:38 /data/adb/modules/komari_agent/service.sh
+-rwxr-xr-x 1 root root 926 2026-10-19 20:38 /data/adb/modules/komari_agent/uninstall.sh

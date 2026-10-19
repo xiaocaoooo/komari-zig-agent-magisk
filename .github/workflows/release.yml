@@ -159,9 +159,42 @@ jobs:
           path: dist/komari-agent-${{ matrix.os }}-${{ matrix.arch }}*
           if-no-files-found: error
 
+  # 单独构建 Magisk 模块 zip：它需要 aarch64-linux-musl 二进制 + 模块脚本，
+  # 且必须与上面 20 个二进制一起作为 Release 资产发布，安装脚本与自更新链路才能引用它。
+  magisk-module:
+    runs-on: ubuntu-latest
+    needs: prepare
+    steps:
+      - uses: actions/checkout@34e114876b0b11c390a56381ad16ebd13914f8d5
+        with:
+          ref: ${{ needs.prepare.outputs.tag }}
+      - name: Install Zig
+        shell: bash
+        run: |
+          set -eu
+          sudo apt-get update
+          sudo apt-get install -y zip unzip
+          bash scripts/install_zig_ci.sh "zig-x86_64-linux-${ZIG_VERSION}.tar.xz" "${ZIG_SHA256}"
+      - name: Build static aarch64 agent
+        run: |
+          set -eu
+          zig build -Doptimize=ReleaseSmall -Dversion=${{ needs.prepare.outputs.tag }} -Dtarget=aarch64-linux-musl
+          cp zig-out/bin/komari-agent ./komari-agent
+          chmod +x ./komari-agent
+      - name: Build Magisk module zip
+        run: |
+          set -eu
+          sh scripts/build_magisk_module.sh ./komari-agent "${{ needs.prepare.outputs.tag }}"
+          ls -l dist/komari-agent-magisk-module-arm64.zip
+      - uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
+        with:
+          name: komari-agent-magisk-module-arm64
+          path: dist/komari-agent-magisk-module-arm64.zip
+          if-no-files-found: error
+
   publish:
     runs-on: ubuntu-latest
-    needs: [prepare, build]
+    needs: [prepare, build, magisk-module]
     steps:
       - uses: actions/checkout@34e114876b0b11c390a56381ad16ebd13914f8d5
         with:

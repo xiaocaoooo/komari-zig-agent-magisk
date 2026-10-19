@@ -6,3 +6,7 @@ build/
 auto-discovery.json
 net_static.json
 net_static.json.bak
+dist/
+coverage/
+.narrafork/
+.DS_Store
