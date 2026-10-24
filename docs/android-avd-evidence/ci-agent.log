@@ -1,0 +1,69 @@
+2026-10-24 08:20:20 starting agent: /data/adb/komari-agent/bin/komari-agent --config /data/adb/komari-agent/config.json
+Monitoring Mountpoints: [/apex/com.android.appsearch (ext4) /apex/com.android.art (ext4) /metadata (ext4) /apex/com.android.conscrypt (ext4) /apex/com.android.apex.cts.shim (ext4) /apex/com.android.adbd (ext4) /apex/com.android.configinfrastructure (ext4) /apex/com.android.hardware.authsecret (ext4) /apex/com.android.virt (ext4) /apex/com.android.wifi (ext4) /apex/com.android.permission (ext4) /apex/com.android.rkpd (ext4) /apex/com.android.scheduling (ext4) /apex/com.android.extservices (ext4) /apex/com.android.uwb (ext4) /apex/com.google.mainline.primary.libs@350726000 (ext4) /apex/com.android.hardware.neuralnetworks (ext4) /apex/com.android.hardware.rebootescrow (ext4) /apex/com.android.sdkext (ext4) /apex/com.android.adservices (ext4) /apex/com.android.btservices (ext4) /apex/com.android.tethering (ext4) /apex/com.android.i18n (ext4) /apex/com.android.tzdata (ext4) /apex/com.android.os.statsd (ext4) /apex/com.android.runtime (ext4) /apex/com.android.profiling (ext4) /vendor (ext4) /bootstrap-apex/com.android.runtime (ext4) /apex/com.android.hardware.cas (ext4) /apex/com.android.healthfitness (ext4) / (ext4) /apex/com.android.ipsec (ext4) /apex/com.google.android.widevine (ext4) /apex/com.android.media (ext4) /apex/com.android.media.swcodec (ext4) /apex/com.android.ondevicepersonalization (ext4) /bootstrap-apex/com.android.i18n (ext4) /config (configfs) /apex/com.android.nfcservices (ext4) /apex/com.android.mediaprovider (ext4) /apex/com.android.resolv (ext4) /apex/com.android.cellbroadcast (ext4) /product (ext4) /data (ext4) /apex/com.android.neuralnetworks (ext4) /bootstrap-apex/com.android.tzdata (ext4) /apex/com.android.devicelock (ext4)]
+Monitoring Interfaces: [dummy0 ifb0 ifb1 tunl0 gre0 gretap0 erspan0 ip_vti0 ip6_vti0 sit0 ip6tnl0 ip6gre0 hwsim0 eth0 wlan0]
+[debug] starting basic info collection (allow_external_ip_lookup=false)
+2026-10-24 08:20:20 agent started pid=6398
+[debug] local IPv6 route fallback result: fec0::6502:f6fe:3b6f:5a69
+[debug] basic info collected: local_ipv4=10.0.2.15 local_ipv6=fec0::6502:f6fe:3b6f:5a69
+[debug] using custom IPv4 override: 10.0.2.15
+[debug] basic info prepared: upload_bytes=374 final_ipv4=10.0.2.15 final_ipv6=fec0::6502:f6fe:3b6f:5a69
+[debug] tcp connect established via 127.0.0.1:25774
+Basic info ready: 374 bytes
+[debug] basic info upload finished successfully during startup
+Basic info uploaded successfully
+[debug] report websocket connect attempt 1 to http://127.0.0.1:25774
+[debug] websocket transport connect start host=127.0.0.1 port=25774 tls=false
+[debug] tcp connect established via 127.0.0.1:25774
+[debug] websocket transport connected host=127.0.0.1 port=25774
+[debug] websocket upgrade request sent path=/api/clients/v2/rpc?token=avd-token
+[debug] websocket handshake accepted path=/api/clients/v2/rpc?token=avd-token
+[debug] websocket connected via 127.0.0.1:25774
+[debug] report websocket connected on attempt 1
+[debug] tcp connect established via 127.0.0.1:25774
+[debug] websocket transport connect start host=127.0.0.1 port=25774 tls=false
+[debug] tcp connect established via 127.0.0.1:25774
+[debug] websocket transport connected host=127.0.0.1 port=25774
+[debug] websocket upgrade request sent path=/api/clients/terminal?token=avd-token&id=avd-terminal
+[debug] tcp connect established via 127.0.0.1:25774
+[debug] websocket handshake accepted path=/api/clients/terminal?token=avd-token&id=avd-terminal
+[debug] websocket connected via 127.0.0.1:25774
+[debug] tcp connect established via 127.0.0.1:25774
+[debug] tcp connect established via 127.0.0.1:25774
+WebSocket read failed: ReadFailed
+[debug] report websocket connect attempt 1 to http://127.0.0.1:25774
+[debug] websocket transport connect start host=127.0.0.1 port=25774 tls=false
+[debug] tcp connect established via 127.0.0.1:25774
+[debug] websocket transport connected host=127.0.0.1 port=25774
+[debug] websocket upgrade request sent path=/api/clients/v2/rpc?token=avd-token
+[debug] websocket handshake accepted path=/api/clients/v2/rpc?token=avd-token
+[debug] websocket connected via 127.0.0.1:25774
+[debug] report websocket connected on attempt 1
+[debug] websocket transport connect start host=127.0.0.1 port=25774 tls=false
+[debug] tcp connect established via 127.0.0.1:25774
+[debug] websocket transport connected host=127.0.0.1 port=25774
+[debug] websocket upgrade request sent path=/api/clients/terminal?token=avd-token&id=avd-terminal
+[debug] tcp connect established via 127.0.0.1:25774
+[debug] websocket handshake accepted path=/api/clients/terminal?token=avd-token&id=avd-terminal
+[debug] websocket connected via 127.0.0.1:25774
+[debug] tcp connect established via 127.0.0.1:25774
+[debug] tcp connect established via 127.0.0.1:25774
+[debug] tcp connect established via 127.0.0.1:25774
+WebSocket read failed: ReadFailed
+[debug] report websocket connect attempt 1 to http://127.0.0.1:25774
+[debug] websocket transport connect start host=127.0.0.1 port=25774 tls=false
+[debug] tcp connect established via 127.0.0.1:25774
+[debug] websocket transport connected host=127.0.0.1 port=25774
+[debug] websocket upgrade request sent path=/api/clients/v2/rpc?token=avd-token
+[debug] websocket handshake accepted path=/api/clients/v2/rpc?token=avd-token
+[debug] websocket connected via 127.0.0.1:25774
+[debug] report websocket connected on attempt 1
+[debug] tcp connect established via 127.0.0.1:25774
+[debug] websocket transport connect start host=127.0.0.1 port=25774 tls=false
+[debug] tcp connect established via 127.0.0.1:25774
+[debug] websocket transport connected host=127.0.0.1 port=25774
+[debug] websocket upgrade request sent path=/api/clients/terminal?token=avd-token&id=avd-terminal
+[debug] websocket handshake accepted path=/api/clients/terminal?token=avd-token&id=avd-terminal
+[debug] websocket connected via 127.0.0.1:25774
+[debug] tcp connect established via 127.0.0.1:25774
+[debug] tcp connect established via 127.0.0.1:25774
+[debug] tcp connect established via 127.0.0.1:25774

@@ -315,7 +315,7 @@ def make_handler(state):
             self.end_headers()
             self.wfile.write(resp)
 
-        def _handle_ping_result(self, payload):
+        def _handle_ping_result(self, payload, ack=True):
             params = payload.get("params") or {}
             ptype = params.get("ping_type", "?")
             value = params.get("value", -1)
@@ -325,7 +325,8 @@ def make_handler(state):
             })
             with state.lock:
                 if ptype in state.ping_seen:
-                    self._ack(payload)
+                    if ack:
+                        self._ack(payload)
                     return
                 state.ping_seen.add(ptype)
             state.results.add(
@@ -334,7 +335,8 @@ def make_handler(state):
                 f"value={value}",
                 {"ping_type": ptype, "task_id": params.get("task_id")},
             )
-            self._ack(payload)
+            if ack:
+                self._ack(payload)
 
         def _handle_task_result_rpc(self, payload):
             params = payload.get("params") or {}
@@ -434,6 +436,8 @@ def make_handler(state):
             self.send_header("Sec-WebSocket-Accept", websocket_accept(key))
             self.end_headers()
             self.wfile.flush()
+            # Keep close_connection=True: BaseHTTPRequestHandler must not try to
+            # read another HTTP request from an already-upgraded socket.
             self.close_connection = True
             return True
 
@@ -452,14 +456,51 @@ def make_handler(state):
             report_shapes = []
             while time.monotonic() < deadline:
                 if not tasks_sent:
-                    # v2 下 exec/ping 走 agent.pull 的 HTTP 响应下发（见 _handle_pull），
-                    # WS 只用于接收上报。这里仅触发 terminal：agent 会另开一条
-                    # /api/clients/terminal WS 回来。
+                    # 任务下发走 WS 的 v2 JSON-RPC 通道。
+                    #
+                    # 两种下发方式都真实存在：agent.pull 的 HTTP 响应
+                    # (src/protocol/report_ws.zig: postV2PullOnce) 与 WS 推送
+                    # (src/protocol/ws_message.zig: classify 按 method 分派)。
+                    # agent 在 WS 连上后不会再发 pull，所以这里必须用 WS 下发，
+                    # 否则 exec/ping 永远收不到。
+                    write_ws_frame(self.wfile, 0x1, json.dumps({
+                        "jsonrpc": "2.0",
+                        "id": "avd-exec-1",
+                        "method": "agent.exec",
+                        "params": {
+                            "task_id": "exec-real",
+                            "command": "echo AVD_EXEC_MARKER; id -u; uname -m",
+                        },
+                    }).encode())
+                    for idx, (ptype, target) in enumerate(
+                        (("tcp", "10.0.2.2:25774"),
+                         ("icmp", "127.0.0.1"),
+                         ("http", "http://127.0.0.1:25774/health")),
+                        start=101,
+                    ):
+                        write_ws_frame(self.wfile, 0x1, json.dumps({
+                            "jsonrpc": "2.0",
+                            "id": f"avd-ping-{idx}",
+                            "method": "agent.ping",
+                            "params": {
+                                # ping_task_id 必须是 u64 数字：传字符串会被解析成 0，
+                                # agent 便不会回结果 (src/protocol/ws_message.zig)。
+                                "ping_task_id": idx,
+                                "ping_type": ptype,
+                                "ping_target": target,
+                            },
+                        }).encode())
+                    # v1 风格的 terminal 消息：agent 会另开一条 /api/clients/terminal WS。
                     write_ws_frame(self.wfile, 0x1, json.dumps({
                         "message": "terminal",
                         "request_id": "avd-terminal",
                     }).encode())
                     tasks_sent = True
+                    state.record("ws_tasks_sent", {
+                        "at": time.strftime("%Y-%m-%dT%H:%M:%S"),
+                        "methods": ["agent.exec", "agent.ping(tcp)", "agent.ping(icmp)",
+                                    "agent.ping(http)", "terminal"],
+                    })
                     state.record("ws_terminal_requested", {
                         "at": time.strftime("%Y-%m-%dT%H:%M:%S"),
                         "request_id": "avd-terminal",
@@ -484,12 +525,22 @@ def make_handler(state):
                 except Exception:
                     continue
 
-                # 上报载荷
-                if "cpu" in data and "ram" in data and "load" in data:
+                # 上报载荷。
+                # v2 下上报是 JSON-RPC 通知，真正的监控数据在 params.report 里
+                # (src/protocol/v2.zig: allocReportNotification -> {"report":{...}})，
+                # 所以要解包两层。
+                report_payload = data
+                if data.get("method") == "agent.report":
+                    params = data.get("params")
+                    if isinstance(params, dict):
+                        report_payload = params.get("report", params)
+                if not isinstance(report_payload, dict):
+                    report_payload = data
+                if "cpu" in report_payload and "ram" in report_payload and "load" in report_payload:
                     with state.lock:
                         state.reports += 1
-                    report_shapes.append(data)
-                    state.record("report", {"at": time.strftime("%Y-%m-%dT%H:%M:%S"), "payload": data})
+                    report_shapes.append(report_payload)
+                    state.record("report", {"at": time.strftime("%Y-%m-%dT%H:%M:%S"), "payload": report_payload})
                     if state.reports == 3:
                         state.results.add(
                             "report_ws",
@@ -498,8 +549,16 @@ def make_handler(state):
                             {"sample": report_shapes[-1]},
                         )
 
-                # ping 结果在 v2 下走 agent.pingResult 的 RPC 上报，
-                # 由 _handle_ping_result 处理；WS 上只接收周期上报。
+                # v2 下 ping 结果以 agent.pingResult 通知从同一条 WS 回传
+                # (src/protocol/report_ws.zig: runPingTask -> conn.writeText)。
+                # agent.pull 走 HTTP 时才由 _handle_ping_result 收，这里补上
+                # WS 路径，否则 ping 断言永远拿不到结果。
+                if data.get("method") == "agent.pingResult":
+                    # WS 通道不能写 HTTP 响应头，所以不发 ack。
+                    self._handle_ping_result(data, ack=False)
+
+                # exec 结果在 v2 下走 HTTP /api/clients/task/result (task.uploadExecResult)，
+                # 这里不重复处理，只把其余消息留档。
                 if data.get("type") not in (None, "ping_result") and "cpu" not in data:
                     state.record("ws_other", {"at": time.strftime("%Y-%m-%dT%H:%M:%S"), "payload": data})
 

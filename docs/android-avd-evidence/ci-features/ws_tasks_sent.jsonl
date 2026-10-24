@@ -1,0 +1,3 @@
+{"at": "2026-10-24T08:20:20", "methods": ["agent.exec", "agent.ping(tcp)", "agent.ping(icmp)", "agent.ping(http)", "terminal"]}
+{"at": "2026-10-24T08:20:51", "methods": ["agent.exec", "agent.ping(tcp)", "agent.ping(icmp)", "agent.ping(http)", "terminal"]}
+{"at": "2026-10-24T08:21:22", "methods": ["agent.exec", "agent.ping(tcp)", "agent.ping(icmp)", "agent.ping(http)", "terminal"]}

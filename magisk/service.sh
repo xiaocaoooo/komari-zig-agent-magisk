@@ -51,7 +51,17 @@ start_agent() {
     log "config not found: $CONFIG, skip start"
     return 1
   fi
-  if ! grep -q '"endpoint"[[:space:]]*:[[:space:]]*"[^"]\+"' "$CONFIG" 2>/dev/null; then
+  # Extract the endpoint value, then test it for emptiness.
+  #
+  # Two portability rules apply here, both learned from Android:
+  #   1. /system/bin/grep is toybox and does NOT support the GNU BRE "\+"
+  #      operator. A non-empty endpoint would look empty and the agent would
+  #      never start.
+  #   2. A plain "[^"]*" test cannot tell "" from "x", so the value has to be
+  #      extracted before it can be compared against the empty string.
+  # sed is POSIX and toybox supports both the script and the \1 backreference.
+  endpoint_value=$(sed -n 's/.*"endpoint"[[:space:]]*:[[:space:]]*"\([^"]*\)".*/\1/p' "$CONFIG" 2>/dev/null | head -n 1)
+  if [ -z "$endpoint_value" ]; then
     log "config endpoint is empty, skip start"
     return 1
   fi

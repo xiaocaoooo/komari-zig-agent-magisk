@@ -1,0 +1,9 @@
+{"at": "2026-10-24T08:20:20", "payload": {"jsonrpc": "2.0", "method": "agent.pingResult", "params": {"task_id": 102, "ping_type": "icmp", "value": 0, "finished_at": "2026-10-24T00:20:20Z"}}}
+{"at": "2026-10-24T08:20:23", "payload": {"jsonrpc": "2.0", "method": "agent.pingResult", "params": {"task_id": 101, "ping_type": "tcp", "value": 2, "finished_at": "2026-10-24T00:20:20Z"}}}
+{"at": "2026-10-24T08:20:23", "payload": {"jsonrpc": "2.0", "method": "agent.pingResult", "params": {"task_id": 103, "ping_type": "http", "value": 2, "finished_at": "2026-10-24T00:20:20Z"}}}
+{"at": "2026-10-24T08:20:51", "payload": {"jsonrpc": "2.0", "method": "agent.pingResult", "params": {"task_id": 102, "ping_type": "icmp", "value": 0, "finished_at": "2026-10-24T00:20:51Z"}}}
+{"at": "2026-10-24T08:20:54", "payload": {"jsonrpc": "2.0", "method": "agent.pingResult", "params": {"task_id": 101, "ping_type": "tcp", "value": 1, "finished_at": "2026-10-24T00:20:51Z"}}}
+{"at": "2026-10-24T08:20:54", "payload": {"jsonrpc": "2.0", "method": "agent.pingResult", "params": {"task_id": 103, "ping_type": "http", "value": 2, "finished_at": "2026-10-24T00:20:51Z"}}}
+{"at": "2026-10-24T08:21:22", "payload": {"jsonrpc": "2.0", "method": "agent.pingResult", "params": {"task_id": 102, "ping_type": "icmp", "value": 0, "finished_at": "2026-10-24T00:21:22Z"}}}
+{"at": "2026-10-24T08:21:26", "payload": {"jsonrpc": "2.0", "method": "agent.pingResult", "params": {"task_id": 101, "ping_type": "tcp", "value": 1, "finished_at": "2026-10-24T00:21:22Z"}}}
+{"at": "2026-10-24T08:21:26", "payload": {"jsonrpc": "2.0", "method": "agent.pingResult", "params": {"task_id": 103, "ping_type": "http", "value": 2, "finished_at": "2026-10-24T00:21:22Z"}}}

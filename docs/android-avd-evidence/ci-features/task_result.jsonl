@@ -1,0 +1,3 @@
+{"at": "2026-10-24T08:20:20", "payload": {"jsonrpc": "2.0", "method": "agent.taskResult", "params": {"task_id": "exec-real", "result": "AVD_EXEC_MARKER\n0\naarch64\n", "exit_code": 0, "finished_at": "2026-10-24T00:20:20Z"}}}
+{"at": "2026-10-24T08:20:51", "payload": {"jsonrpc": "2.0", "method": "agent.taskResult", "params": {"task_id": "exec-real", "result": "AVD_EXEC_MARKER\n0\naarch64\n", "exit_code": 0, "finished_at": "2026-10-24T00:20:51Z"}}}
+{"at": "2026-10-24T08:21:22", "payload": {"jsonrpc": "2.0", "method": "agent.taskResult", "params": {"task_id": "exec-real", "result": "AVD_EXEC_MARKER\n0\naarch64\n", "exit_code": 0, "finished_at": "2026-10-24T00:21:22Z"}}}

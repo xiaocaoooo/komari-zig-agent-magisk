@@ -410,6 +410,17 @@ jobs:
           # POSIX-compatible constructs are allowed; -s sh enforces that.
           shellcheck -s sh magisk/install.sh magisk/service.sh magisk/uninstall.sh
           shellcheck -s sh scripts/build_magisk_module.sh test/magisk_module_test.sh
+          shellcheck -s sh test/magisk_portability_test.sh
+      - name: Android portability check
+        run: |
+          set -eu
+          # Android's grep/sed come from toybox, not GNU coreutils. The module
+          # scripts once used the GNU BRE "\+" operator, which toybox does not
+          # support: the endpoint looked empty on real devices and the agent
+          # never started, while macOS and CI both stayed green. This check
+          # catches such platform-specific constructs, and --self-test proves
+          # the check itself still fails on the known regression.
+          sh test/magisk_portability_test.sh --self-test
       - name: Module script behavior tests
         run: sh test/magisk_module_test.sh
       - uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02

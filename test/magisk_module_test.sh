@@ -115,7 +115,23 @@ test_service_skips_empty_endpoint() {
   DESC="service.sh logs empty-endpoint reason" check assert_contains "$d/data/logs/agent.log" 'endpoint is empty' || true
 }
 
-# --- 用例 4：uninstall.sh 只杀指向本模块二进制的进程 ---
+# --- 用例 4：service.sh 在 endpoint 非空时必须启动 agent ---
+#
+# 回归用例：曾经的实现用 GNU BRE 的 "\+" 判断 endpoint 非空，而 Android 的
+# /system/bin/grep 是 toybox，不支持 "\+"，导致真机上永远判定为空、agent 永不
+# 启动，而本地 BSD grep 却能通过。这里断言"非空 endpoint 必须真的启动 agent"，
+# 是防止该缺陷复发的关键守卫。
+test_service_starts_with_endpoint() {
+  d="$(prepare_case service_start)"
+  printf '{"endpoint":"https://panel.example","token":"tok"}\n' > "$d/data/config.json"
+  printf '#!/bin/sh\ntouch "%s/started"\n' "$d/data" > "$d/data/bin/komari-agent"
+  chmod 0755 "$d/data/bin/komari-agent"
+  PATH="$d/fakebin:$PATH" sh -c "MODPATH='$d/modpath' sh '$d/modpath/service.sh' & p=\$!; sleep 3; kill \$p 2>/dev/null" >"$d/out.log" 2>&1 || true
+  DESC="service.sh starts agent when endpoint is set" check assert_file "$d/data/started" || true
+  DESC="service.sh records start in log" check assert_contains "$d/data/logs/agent.log" 'agent started' || true
+}
+
+# --- 用例 5：uninstall.sh 只杀指向本模块二进制的进程 ---
 test_uninstall_kills_only_module_binary() {
   d="$(prepare_case uninstall)"
   sleep 60 &
@@ -146,6 +162,7 @@ mkdir -p "$BASE"
 test_install_generates_config
 test_install_preserves_config
 test_service_skips_empty_endpoint
+test_service_starts_with_endpoint
 test_uninstall_kills_only_module_binary
 
 printf '\n%d passed, %d failed\n' "$PASS" "$FAIL"
