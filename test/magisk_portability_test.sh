@@ -84,7 +84,9 @@ scan_for_bashisms() {
 # 可移植写法：先把值取出来再判空，而不是靠正则匹配"看起来非空"。
 scan_endpoint_guard() {
   file="$MOD/service.sh"
+  # grep 的模式是字面量文本匹配，不展开变量；shellcheck SC2016 在此不适用。
   if grep -q 'endpoint_value=' "$file" 2>/dev/null &&
+     # shellcheck disable=SC2016
      grep -q 'if \[ -z "\$endpoint_value" \]' "$file" 2>/dev/null; then
     ok "service.sh extracts the endpoint value before testing it for emptiness"
     return 0
@@ -128,6 +130,8 @@ self_test() {
   cp "$MOD/install.sh" "$MOD/service.sh" "$MOD/uninstall.sh" "$work/"
 
   # 把可移植的"取值再判空"还原成旧的 GNU BRE "非空匹配"。
+  # sed 表达式是刻意构造的字面量替换（含 \$ 与 \\+），不展开任何变量。
+  # shellcheck disable=SC2016
   sed -e 's|^  endpoint_value=.*|  if ! grep -q '"'"'"endpoint"[[:space:]]*:[[:space:]]*"[^"]\\+"'"'"' "$CONFIG" 2>/dev/null; then|' \
       -e 's|^  if \[ -z "\$endpoint_value" \]; then|    echo legacy|' \
       "$MOD/service.sh" > "$work/service.sh"
