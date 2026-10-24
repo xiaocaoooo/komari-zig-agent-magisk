@@ -84,8 +84,9 @@ scan_for_bashisms() {
 # 可移植写法：先把值取出来再判空，而不是靠正则匹配"看起来非空"。
 scan_endpoint_guard() {
   file="$MOD/service.sh"
-  # grep 的模式是字面量文本匹配（含 \$endpoint_value 字样），不展开变量；
-  # shellcheck SC2016 在此不适用。指令必须放在命令之前的独立行上。
+  # grep 的模式是字面量文本匹配（含 \$endpoint_value 字样），不展开变量，
+  # 所以 SC2016 在此不适用。注意注释不能以 "shellcheck" 一词开头，
+  # 否则会被解析器当成指令。
   # shellcheck disable=SC2016
   if grep -q 'endpoint_value=' "$file" 2>/dev/null &&
      grep -q 'if \[ -z "\$endpoint_value" \]' "$file" 2>/dev/null; then
